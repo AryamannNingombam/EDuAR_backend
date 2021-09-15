@@ -5,8 +5,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const bodyParser = require('body-parser')
-
 const app = express()
+const ChapterRoutes = require('./routes/Chapter')
+const Model3DRoutes = require('./routes/Model3D')
+const QRCodeRoutes = require('./routes/QRCode')
 
 var whitelist = ['http://localhost:3000']
 
@@ -57,7 +59,6 @@ app.use(
 )
 
 const db = process.env.MONGO_DB_URI
-
 mongoose
   .connect(db, {
     useNewUrlParser: true,
@@ -71,6 +72,9 @@ mongoose
         message: 'Welcome to my API',
       })
     })
+    app.use('/api/chapter', ChapterRoutes.ChapterRoutes)
+    app.use('/api/model-3d', Model3DRoutes.Model3DRoutes)
+    app.use('/api/qr-code', QRCodeRoutes.QRCodeRoutes)
 
     const PORT = process.env.PORT || 8080
     app.listen(PORT, () => {

@@ -1,10 +1,11 @@
 import ChapterModel, { ChapterDoc } from '../models/Chapter'
 import { Request, Response, NextFunction } from 'express'
-import GenerateHash from '../services/GenerateHash'
+import * as Randomstring from 'randomstring'
 
-export const addChapter = (req: Request, res: Response, next: NextFunction) => {
+export const AddChapter = (req: Request, res: Response, next: NextFunction) => {
   let temp = req.body as any
-  temp.QRHash = GenerateHash(20)
+  temp.QRHash = Randomstring.generate(20)
+  // temp.QRHash = 'cryptoRandomString({length:20,type:"base64"})'
   const body = temp as ChapterDoc
   ChapterModel.create(body)
     .then((newChapter) => {
@@ -23,7 +24,7 @@ export const addChapter = (req: Request, res: Response, next: NextFunction) => {
     })
 }
 
-export const getAllChaptersForBoards = (
+export const GetAllChaptersForBoards = (
   req: Request,
   res: Response,
   next: NextFunction,
@@ -52,7 +53,7 @@ export const getAllChaptersForBoards = (
     })
 }
 
-export const getChapterDetails = (
+export const GetChapterDetails = (
   req: Request,
   res: Response,
   next: NextFunction,

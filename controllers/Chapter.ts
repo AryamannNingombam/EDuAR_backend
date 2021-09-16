@@ -53,6 +53,8 @@ export const GetAllChaptersForBoards = (
     })
 }
 
+
+
 export const GetChapterDetails = (
   req: Request,
   res: Response,

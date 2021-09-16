@@ -10,7 +10,7 @@ const ChapterRoutes = require('./routes/Chapter')
 const Model3DRoutes = require('./routes/Model3D')
 const QRCodeRoutes = require('./routes/QRCode')
 
-var whitelist = ['http://localhost:3000']
+var whitelist = '*'
 
 var corsOptions = {
   origin: function (origin, callback) {

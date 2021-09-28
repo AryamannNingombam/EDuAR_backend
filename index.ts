@@ -1,3 +1,5 @@
+import { Request, Response } from 'express'
+
 require('dotenv').config({
   path: __dirname + '/.env',
 })
@@ -67,11 +69,38 @@ mongoose
   .then(() => {
     console.log('Connected!')
 
-    app.get('/welcome', (req, res) => {
+    app.get('/welcome', (req: Request, res: Response) => {
       res.status(200).json({
-        message: 'Welcome to my API',
+        message: 'Welcome not to my API q!',
       })
     })
+
+    app.get('/check-headers', (req: Request, res: Response) => {
+      console.log('Helo')
+      console.log(req.headers)
+      return res.status(200).json({
+        success: true,
+        message: 'Got your header boy!',
+      })
+    })
+
+    app.post('/check-post', (req: Request, res: Response) => {
+
+      
+      return res.status(200).json({
+        success: true,
+        data: {
+          username: 'Username1',
+          email: 'aryamannsingh9@gmail.com',
+          dateOfBirth: {
+            year: 2002,
+            month: 5,
+            day: 15,
+          },
+        },
+      })
+    })
+
     app.use('/api/chapter', ChapterRoutes.ChapterRoutes)
     app.use('/api/model-3d', Model3DRoutes.Model3DRoutes)
     app.use('/api/qr-code', QRCodeRoutes.QRCodeRoutes)

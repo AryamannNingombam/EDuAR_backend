@@ -14,7 +14,7 @@ const Model3DSchema = new Schema({
     unique: [true, 'Model URL must be unique'],
   },
   chapter: {
-    type: mongoose.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     required: [true, 'Chapter is required!'],
   },
 })

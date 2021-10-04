@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express'
-import ChapterModel from '../models/Chapter'
+import ChapterModel, { ChapterDoc } from '../models/Chapter'
 import {GenerateQRCode} from '../services/GenerateQRCode'
 
 export const GetQRCodeForChapter = (
@@ -16,11 +16,14 @@ export const GetQRCodeForChapter = (
   }
   ChapterModel.findById({ _id })
     .then((chapter) => {
-      const URL = GenerateQRCode(chapter.QRHash)
-      return res.status(200).json({
-        success: true,
-        url: URL,
-      })
+      if (chapter){
+        const URL = GenerateQRCode(chapter.QRHash as string);
+        return res.status(200).json({
+          success: true,
+          url: URL,
+        })
+      }
+    
     })
     .catch((err) => {
       console.log('ERROR')

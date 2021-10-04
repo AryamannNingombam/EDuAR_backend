@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response, NextFunction } from 'express'
 
 require('dotenv').config({
   path: __dirname + '/.env',
@@ -15,7 +15,7 @@ const QRCodeRoutes = require('./routes/QRCode')
 var whitelist = '*'
 
 var corsOptions = {
-  origin: function (origin, callback) {
+  origin: function (origin: any, callback: any) {
     if (!origin || whitelist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
@@ -26,7 +26,7 @@ var corsOptions = {
 
 app.use(cors())
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader(
     'Access-Control-Allow-Methods',
@@ -36,14 +36,16 @@ app.use((req, res, next) => {
   next()
 })
 
-app.use((req, res, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
   bodyParser.json({
     limit: '50mb',
     extended: true,
-  })(req, res, (err) => {
+  })(req, res, (err: Error) => {
     if (err) {
       console.error(err)
-      return res.sendStatus(400) // Bad request
+      return res.status(400).json({
+        success: false,
+      })
     }
     next()
   })
@@ -85,8 +87,6 @@ mongoose
     })
 
     app.post('/check-post', (req: Request, res: Response) => {
-
-      
       return res.status(200).json({
         success: true,
         data: {
@@ -110,7 +110,7 @@ mongoose
       console.log(`Server is running on port ${PORT}.`)
     })
   })
-  .catch((err) => {
+  .catch((err:Error) => {
     console.log(err)
     console.log("Coudn't connect")
   })

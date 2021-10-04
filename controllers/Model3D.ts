@@ -16,7 +16,7 @@ export const GetModelsForChapterFromQRCode = async (
   }
   let chapter: ChapterDoc
   try {
-    chapter = await ChapterModel.findOne({ QRHash: QRCode })
+    chapter = await ChapterModel.findOne({ QRHash: QRCode }) as ChapterDoc;
   } catch (err) {
     console.log('ERROR')
     console.log(err)

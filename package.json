@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.ts",
+    "start": "ts-node index.ts",
+    "dev": "nodemon -x ts-node index.ts",
     "clean": "del ./dist/*",
     "build": "npm run clean && tsc"
   },
